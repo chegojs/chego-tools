@@ -15,31 +15,31 @@ To find out what `Property`, `Table`, `SortingData`, `Alias`, `RowId`, `Limit`, 
 
 ## Tools
 
-### <code>newProperty({ table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum }): Property</code>
+#### <code>newProperty({ table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum }): Property</code>
 Returns new `Property` object.
 
-### <code>newTable(name: string, alias?: string): Table</code>
+#### <code>newTable(name: string, alias?: string): Table</code>
 Returns new `Table` object.
 
-### <code>newLimit(offsetOrCount: number, count?: number): Limit</code>
+#### <code>newLimit(offsetOrCount: number, count?: number): Limit</code>
 Returns new `Limit` object.
 
-### <code>newSortingData(property: Property = null, order: SortingOrderEnum = SortingOrderEnum.ASC): SortingData</code>
+#### <code>newSortingData(property: Property = null, order: SortingOrderEnum = SortingOrderEnum.ASC): SortingData</code>
 Returns new `SortingData` object.
 
-### <code>rowId(alias: string = 'id'): Property</code>
+#### <code>rowId(alias: string = 'id'): Property</code>
 Returns new `Property` object with the defined type `QuerySyntaxEnum.RowId`. 
 
-### <code>alias(name: string, alias: string): Property</code>
+#### <code>alias(name: string, alias: string): Property</code>
 Returns new `Property` object with the defined type `QuerySyntaxEnum.Alias`. 
 
-### <code>getLabel(obj: Property | Table):string</code>
+#### <code>getLabel(obj: Property | Table):string</code>
 Returns label string of given property/table. If `alias` is set then it will return its value, otherwise it returns `name` of the property.
 
-### <code>parseStringToPropertyIfRequired(key: StringOrProperty):Property</code>
+#### <code>parseStringToPropertyIfRequired(key: StringOrProperty):Property</code>
 Function checks if a given `key` is a `string`, if so, it parses it to a `Property` object. 
 
-### <code>mergePropertiesWithLogicalAnd(properties: PropertyOrLogicalOperatorScope[], current: PropertyOrLogicalOperatorScope, i: number): PropertyOrLogicalOperatorScope[]</code>
+#### <code>mergePropertiesWithLogicalAnd(properties: PropertyOrLogicalOperatorScope[], current: PropertyOrLogicalOperatorScope, i: number): PropertyOrLogicalOperatorScope[]</code>
 `Array.reduce` callback, which checks each element and wraps it within the logical operator scope.
 
 pseudocode 
@@ -47,49 +47,49 @@ pseudocode
 select['foo','bar','baz', or('qux')] ---> select['foo',and('bar'),and('baz'), or('qux')] 
 ```
 
-### <code>newLogicalOperatorScope(type: QuerySyntaxEnum, properties?: PropertyOrLogicalOperatorScope[]): LogicalOperatorScope</code>
+#### <code>newLogicalOperatorScope(type: QuerySyntaxEnum, properties?: PropertyOrLogicalOperatorScope[]): LogicalOperatorScope</code>
 Returns new `LogicalOperatorScope` object.
 
-### <code>isLogicalOperator(value: QuerySyntaxEnum): boolean</code>
+#### <code>isLogicalOperator(value: QuerySyntaxEnum): boolean</code>
 Checks if a given enum value is equal to `And`, `Or` or `Not`.
 
-### <code>isLogicalOperatorScope(data: any): data is LogicalOperatorScope</code>
+#### <code>isLogicalOperatorScope(data: any): data is LogicalOperatorScope</code>
 Checks if a given prop is a `LogicalOperatorScope` object.
 
-### <code>isFunction(value: any): boolean</code>
+#### <code>isFunction(value: any): boolean</code>
 Checks if a given prop is a `function`.
 
-### <code>clone(obj: any):any</code>
+#### <code>clone(obj: any):any</code>
 Performs a deep cloning of an object.
 
-### <code>isQuerySchemeElement(obj: any): boolean</code>
+#### <code>isQuerySchemeElement(obj: any): boolean</code>
 Checks if a given prop is a `QuerySchemeElement` object.
 
-### <code>combineReducers(...reducers: Fn[]) => (previous: any, current: any, index: number, org: any[])</code>
+#### <code>combineReducers(...reducers: Fn[]) => (previous: any, current: any, index: number, org: any[])</code>
 Executes `Array.reduce` callbacks - one by one - in a single iteration.
 
-### <code>parseStringToTable(name: string, alias?: string): Table</code>
+#### <code>parseStringToTable(name: string, alias?: string): Table</code>
 Converts given string to `Table` object.
 
-### <code>parseStringToProperty(name: string, table?: Table): Property</code>
+#### <code>parseStringToProperty(name: string, table?: Table): Property</code>
 Converts given string to `Property` object.
 
-### <code>isTableDotKeyString(value: any): boolean</code>
+#### <code>isTableDotKeyString(value: any): boolean</code>
 Checks if a given param is a `string` and matches pattern eg. `superheros.name`.
 
-### <code>isAliasString(value: any): boolean</code>
+#### <code>isAliasString(value: any): boolean</code>
 Checks if a given param is a `string` and matches pattern eg. `writers.name AS author`.
 
-### <code>isProperty = (value: any): value is Property</code>
+#### <code>isProperty = (value: any): value is Property</code>
 Checks if a given param is a `Property` object.
 
-### <code>isRowId = (value: any): boolean</code>
+#### <code>isRowId = (value: any): boolean</code>
 Checks if a given param is a `Property` object with defined type `QuerySyntaxEnum.RowId`.
 
-### <code>isAlias = (value: any): boolean</code>
+#### <code>isAlias = (value: any): boolean</code>
 Checks if a given param is a `Property` object with defined type `QuerySyntaxEnum.Alias`.
 
-### <code>isMySQLFunction = (value: any): value is FunctionData</code>
+#### <code>isMySQLFunction = (value: any): value is FunctionData</code>
 Checks if a given param is a `FunctionData` object.
 
 ## License
