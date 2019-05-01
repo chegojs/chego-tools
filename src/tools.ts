@@ -1,4 +1,4 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, StringOrProperty, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, AnyButFunction, IQuerySchemeElement, Fn } from '@chego/chego-api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, StringOrProperty, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, AnyButFunction, IQuerySchemeElement, Fn, IQueryScheme } from '@chego/chego-api';
 
 export const isTableDotKeyString = (value: any): boolean =>
     (typeof value === "string") && /^(\w+)\.(\w+)$/.test(value);
@@ -141,3 +141,8 @@ export const isRowId = (value: any): boolean =>
 export const isAlias = (value: any): boolean =>
     isProperty(value)
     && (<Property>value).type === QuerySyntaxEnum.Alias;
+
+export const isQueryScheme = (obj:any) :obj is IQueryScheme => 
+    obj
+    && (<IQueryScheme>obj).add !== undefined 
+    && (<IQueryScheme>obj).toArray !== undefined;
