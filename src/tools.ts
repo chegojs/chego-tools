@@ -60,7 +60,7 @@ export const clone = (obj: any): any => {
     }
 }
 
-export const isQuerySchemeElement = (obj: any): boolean =>
+export const isQuerySchemeElement = (obj: any): obj is IQuerySchemeElement =>
     obj
     && Object.keys(obj).length === 2
     && (<IQuerySchemeElement>obj).type !== undefined
