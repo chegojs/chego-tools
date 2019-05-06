@@ -62,7 +62,8 @@ export const clone = (obj: any): any => {
 
 export const isQuerySchemeElement = (obj: any): obj is IQuerySchemeElement =>
     obj
-    && Object.keys(obj).length === 2
+    && Object.keys(obj).length === 3
+    && (<IQuerySchemeElement>obj).index !== undefined
     && (<IQuerySchemeElement>obj).type !== undefined
     && (<IQuerySchemeElement>obj).params !== undefined;
 
