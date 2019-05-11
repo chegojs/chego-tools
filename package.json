@@ -1,6 +1,6 @@
 {
   "name": "@chego/chego-tools",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A set of tools used across Chego modules.",
   "main": "lib/tools.js",
   "files": [
