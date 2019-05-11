@@ -1,4 +1,4 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, StringOrProperty, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, AnyButFunction, IQuerySchemeElement, Fn, IQueryScheme } from '@chego/chego-api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme } from '@chego/chego-api';
 
 export const isTableDotKeyString = (value: any): boolean =>
     (typeof value === "string") && /^(\w+)\.(\w+)$/.test(value);
