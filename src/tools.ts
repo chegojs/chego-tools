@@ -36,16 +36,12 @@ export const newLogicalOperatorScope = (type: QuerySyntaxEnum, properties?: Prop
         properties: properties || []
     });
 
-
-export const isLogicalOperator = (value: QuerySyntaxEnum): boolean =>
-    value === QuerySyntaxEnum.And || value === QuerySyntaxEnum.Or || value === QuerySyntaxEnum.Not;
-
 export const isLogicalOperatorScope = (data: any): data is LogicalOperatorScope =>
     data
     && Object.keys(data).length === 2
     && (<LogicalOperatorScope>data).type !== undefined
     && (<LogicalOperatorScope>data).properties !== undefined
-    && isLogicalOperator(data.type);
+    && (data.type === QuerySyntaxEnum.And || data.type === QuerySyntaxEnum.Or);
 
 export const isFunction = (value: any): boolean => typeof value === 'function';
 
