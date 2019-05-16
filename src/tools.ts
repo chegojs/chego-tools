@@ -124,6 +124,12 @@ export const isProperty = (value: any): value is Property =>
     && (<Property>value).alias !== undefined
     && (<Property>value).type !== undefined;
 
+export const isTable = (value: any): value is Table =>
+    value
+    && Object.keys(value).length === 2
+    && (<Property>value).name !== undefined
+    && (<Property>value).alias !== undefined
+
 export const isMySQLFunction = (data: any): data is FunctionData => data
     && (<FunctionData>data).type !== undefined
     && (<FunctionData>data).properties !== undefined
