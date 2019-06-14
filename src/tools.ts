@@ -7,11 +7,12 @@ export const isTableDotKeyString = (value: any): boolean =>
 export const isAliasString = (value: any): boolean =>
     (typeof value === "string") && /^(\w+)( AS )(\w+)$/i.test(value);
 
-export const newProperty = ({ table, name, alias, type }: { table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum }): Property => ({
+export const newProperty = ({ table, name, alias, type, temporary }: { table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum, temporary?:boolean }): Property => ({
     table: table || null,
     name: name || '',
     alias: alias || '',
-    type: type || QuerySyntaxEnum.Undefined
+    type: type || QuerySyntaxEnum.Undefined,
+    temporary: temporary || false
 });
 
 export const newTable = (name: string, alias?: string): Table => ({
@@ -63,6 +64,8 @@ export const isExpression = (value: any): value is Expression =>
     && (<Expression>value).property !== undefined;
 
 export const isFunction = (value: any): boolean => typeof value === 'function';
+
+export const isObject = (value:any) => value && typeof value === 'object' && Array.isArray(value) === false;
 
 export const clone = (obj: any): any => {
     if (Array.isArray(obj)) {
@@ -118,8 +121,8 @@ export const parseStringToTable = (name: string, alias?: string): Table => {
     return table;
 }
 
-export const parseStringToProperty = (name: string, table?: Table): Property => {
-    const result: Property = newProperty({ table, name });
+export const parseStringToProperty = (name: string, table?: Table, temporary?:boolean): Property => {
+    const result: Property = newProperty({ table, name, temporary });
 
     if (isAliasString(result.name)) {
         const data: string[] = result.name.replace(/ {1,}/g, ' ').split(' AS ');
@@ -137,11 +140,12 @@ export const parseStringToProperty = (name: string, table?: Table): Property => 
 
 export const isProperty = (value: any): value is Property =>
     value
-    && Object.keys(value).length === 4
+    && Object.keys(value).length === 5
     && (<Property>value).table !== undefined
     && (<Property>value).name !== undefined
     && (<Property>value).alias !== undefined
-    && (<Property>value).type !== undefined;
+    && (<Property>value).type !== undefined
+    && (<Property>value).temporary !== undefined;
 
 export const isTable = (value: any): value is Table =>
     value
@@ -151,10 +155,11 @@ export const isTable = (value: any): value is Table =>
 
 export const isMySQLFunction = (data: any): data is FunctionData => data
     && (<FunctionData>data).type !== undefined
-    && (<FunctionData>data).properties !== undefined
+    && (<FunctionData>data).param !== undefined
     && (<FunctionData>data).alias !== undefined
     && (data.type > 35 && data.type < 43)
-    || (data.type > 21 && data.type < 25);
+    || (data.type > 21 && data.type < 25)
+    || (data.type > 50 && data.type < 120);
 
 export const isRowId = (value: any): boolean =>
     isProperty(value)
