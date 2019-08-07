@@ -92,6 +92,9 @@ Checks if a given param is a `Property` object with defined type `QuerySyntaxEnu
 #### <code>isMySQLFunction = (value: any): value is FunctionData</code>
 Checks if a given param is a `FunctionData` object.
 
+#### <code>isItemWithCustomId = (value: any): value is ItemWithCustomId</code>
+Checks if a given param is a `ItemWithCustomId` object.
+
 ## Contribute
 There is still a lot to do, so if you want to be part of the Chego project and make it better, it's great.
 Whether you find a bug or have a feature request, please contact us. With your help, we'll make it a great tool.

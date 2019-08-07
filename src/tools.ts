@@ -1,5 +1,5 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme } from '@chego/chego-api';
-import { IValidator } from './api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId } from '@chego/chego-api';
+import { IValidator, ValidationReport } from './api';
 
 export const isTableDotKeyString = (value: any): boolean =>
     (typeof value === "string") && /^(\w+)\.(\w+)$/.test(value);
@@ -172,7 +172,18 @@ export const withValidator = <T>(): IValidator<T> => {
                 throw new Error(errors.join('\n'))
             }
             return fn(...args);
-        }
+        },
+        report:():ValidationReport => ({
+            valid:errors.length === 0,
+            errors
+        })
     }
     return validator;
 }
+
+export const isItemWithCustomId = (value: any): value is ItemWithCustomId =>
+    value
+    && Object.keys(value).length === 3
+    && (<ItemWithCustomId>value).id !== undefined
+    && (<ItemWithCustomId>value).item !== undefined
+    && (<ItemWithCustomId>value).type !== QuerySyntaxEnum.ItemWithCustomId;
