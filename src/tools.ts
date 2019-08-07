@@ -186,4 +186,4 @@ export const isItemWithCustomId = (value: any): value is ItemWithCustomId =>
     && Object.keys(value).length === 3
     && (<ItemWithCustomId>value).id !== undefined
     && (<ItemWithCustomId>value).item !== undefined
-    && (<ItemWithCustomId>value).type !== QuerySyntaxEnum.ItemWithCustomId;
+    && (<ItemWithCustomId>value).type === QuerySyntaxEnum.ItemWithCustomId;
