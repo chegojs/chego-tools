@@ -1,4 +1,4 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId } from '@chego/chego-api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId, CustomCondition, DirectPath } from '@chego/chego-api';
 import { IValidator, ValidationReport } from './api';
 
 export const isTableDotKeyString = (value: any): boolean =>
@@ -7,7 +7,7 @@ export const isTableDotKeyString = (value: any): boolean =>
 export const isAliasString = (value: any): boolean =>
     (typeof value === "string") && /^(\w+)( AS )(\w+)$/i.test(value);
 
-export const newProperty = ({ table, name, alias, type, temporary }: { table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum, temporary?:boolean }): Property => ({
+export const newProperty = ({ table, name, alias, type, temporary }: { table?: Table, name?: string, alias?: string, type?: QuerySyntaxEnum, temporary?: boolean }): Property => ({
     table: table || null,
     name: name || '',
     alias: alias || '',
@@ -47,7 +47,7 @@ export const isLogicalOperatorScope = (data: any): data is LogicalOperatorScope 
 
 export const isFunction = (value: any): boolean => typeof value === 'function';
 
-export const isObject = (value:any) => value && typeof value === 'object' && Array.isArray(value) === false;
+export const isObject = (value: any) => value && typeof value === 'object' && Array.isArray(value) === false;
 
 export const clone = (obj: any): any => {
     if (Array.isArray(obj)) {
@@ -103,7 +103,7 @@ export const parseStringToTable = (name: string, alias?: string): Table => {
     return table;
 }
 
-export const parseStringToProperty = (name: string, table?: Table, temporary?:boolean): Property => {
+export const parseStringToProperty = (name: string, table?: Table, temporary?: boolean): Property => {
     const result: Property = newProperty({ table, name, temporary });
 
     if (isAliasString(result.name)) {
@@ -173,8 +173,8 @@ export const withValidator = <T>(): IValidator<T> => {
             }
             return fn(...args);
         },
-        report:():ValidationReport => ({
-            valid:errors.length === 0,
+        report: (): ValidationReport => ({
+            valid: errors.length === 0,
             errors
         })
     }
@@ -187,3 +187,23 @@ export const isItemWithCustomId = (value: any): value is ItemWithCustomId =>
     && (<ItemWithCustomId>value).id !== undefined
     && (<ItemWithCustomId>value).item !== undefined
     && (<ItemWithCustomId>value).type === QuerySyntaxEnum.ItemWithCustomId;
+
+export const isCustomCondition = (value: any): value is CustomCondition =>
+    value
+    && Object.keys(value).length === 2
+    && (<CustomCondition>value).condition !== undefined
+    && (<CustomCondition>value).table !== undefined;
+
+export const newCustomCondition = (condition: Fn<any>, table: Table): CustomCondition => ({
+    condition,
+    table
+});
+
+export const isDirectPath = (value: any): value is DirectPath =>
+    value
+    && Object.keys(value).length === 1
+    && (<DirectPath>value).directPath !== undefined;
+
+export const newDirectPath = (directPath: string): DirectPath => ({
+    directPath
+});
