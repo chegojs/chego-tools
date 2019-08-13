@@ -1,4 +1,4 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId, CustomCondition, DirectPath, ScopeContent } from '@chego/chego-api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId, CustomCondition, DirectPath, ScopeContent, Between } from '@chego/chego-api';
 import { IValidator, ValidationReport } from './api';
 
 export const isTableDotKeyString = (value: any): boolean =>
@@ -21,6 +21,7 @@ export const newTable = (name: string, alias?: string): Table => ({
 });
 
 export const newLimit = (offsetOrCount: number, count?: number): Limit => ({ offsetOrCount, count });
+export const newBetween = (min: number, max: number): Between => ({ min, max });
 
 export const newSortingData = (property: Property = null, order: SortingOrderEnum = SortingOrderEnum.ASC): SortingData => ({
     property,
