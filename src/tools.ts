@@ -1,4 +1,4 @@
-import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, PropertyOrLogicalOperatorScope, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId, CustomCondition, DirectPath } from '@chego/chego-api';
+import { Property, QuerySyntaxEnum, Table, Limit, SortingOrderEnum, SortingData, FunctionData, LogicalOperatorScope, IQuerySchemeElement, Fn, IQueryScheme, ItemWithCustomId, CustomCondition, DirectPath, ScopeContent } from '@chego/chego-api';
 import { IValidator, ValidationReport } from './api';
 
 export const isTableDotKeyString = (value: any): boolean =>
@@ -29,10 +29,10 @@ export const newSortingData = (property: Property = null, order: SortingOrderEnu
 
 export const getLabel = (obj: Property | Table): string => obj.alias ? obj.alias : obj.name;
 
-export const mergePropertiesWithLogicalAnd = (properties: PropertyOrLogicalOperatorScope[], current: PropertyOrLogicalOperatorScope, i: number): PropertyOrLogicalOperatorScope[] =>
+export const mergePropertiesWithLogicalAnd = (properties: ScopeContent[], current: ScopeContent, i: number): ScopeContent[] =>
     properties.concat(isLogicalOperatorScope(current) || i === 0 ? current : newLogicalOperatorScope(QuerySyntaxEnum.And, [current]));
 
-export const newLogicalOperatorScope = (type: QuerySyntaxEnum, properties?: PropertyOrLogicalOperatorScope[]): LogicalOperatorScope =>
+export const newLogicalOperatorScope = (type: QuerySyntaxEnum, properties?: ScopeContent[]): LogicalOperatorScope =>
     ({
         type,
         properties: properties || []
